@@ -1,20 +1,21 @@
 const { PREFIX, TOKEN } = require('./config');
-const { Client } = require('discord.js');
+const { Client, MessageEmbed } = require('discord.js');
 const client = new Client({ disableEveryone: true });
 
 client.on('message', (msg) => {
   if (msg.author.bot) return;
-  const args = msg.content.split(/ +/g);
+  if (msg.content.indexOf(PREFIX) !== 0) return;
+  const args = msg.content.slice(PREFIX.length).trim().split(/ +/g);
   const cmd = args.shift().toLowerCase();
   const role = msg.guild.roles.cache.find((r) => r.name === args[0]);
-  if (cmd === `${PREFIX}ping`) msg.reply('Pong!');
-  if (cmd === `${PREFIX}repeat`) {
+  if (cmd === `ping`) msg.reply('Pong!');
+  if (cmd === `repeat`) {
     msg.channel.send(args.join(' '));
     msg
       .delete({ timeout: 3000 })
       .then((msg) => console.log('Un message a été supprimé'));
   }
-  if (cmd === `${PREFIX}role`) {
+  if (cmd === `role`) {
     if (!args[0])
       return msg.reply(
         'Il faut que tu spécifie le role tu a le choix entre PC PS4 Switch XBOX et Mobile'
@@ -27,6 +28,23 @@ client.on('message', (msg) => {
       msg.member.roles.add(role);
       msg.channel.send(`J'ai ajouté le rôle ${role} à ${msg.author}.`);
     }
+  }
+  if (cmd === 'sinfo') {
+    const exampleEmbed = new MessageEmbed()
+      .setColor('#0099ff')
+      .setTitle('Some title')
+      .setDescription('Some description here')
+      .addFields(
+        { name: 'Regular field title', value: 'Some value here' },
+        { name: '\u200B', value: '\u200B' },
+        { name: 'Inline field title', value: 'Some value here', inline: true },
+        { name: 'Inline field title', value: 'Some value here', inline: true }
+      )
+      .addField('Inline field title', 'Some value here', true)
+      .setTimestamp()
+      .setFooter('Some footer text here');
+
+    msg.channel.send(exampleEmbed);
   }
 });
 

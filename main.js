@@ -8,7 +8,8 @@ client.commands = new Collection();
 
 client.commands.set('repeat', require('./commands/repeat.js'));
 client.commands.set('role', require('./commands/role.js'));
-client.commands.set('sinfo', require('./commands/sinfo.js'));
+client.commands.set('info', require('./commands/info.js'));
+client.commands.set('animals', require('./commands/animals.js'));
 
 client.on('ready', () => require('./events/ready.js')(client));
 client.on('message', (msg) => require('./events/message.js')(client, msg));

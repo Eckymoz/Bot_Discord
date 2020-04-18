@@ -7,6 +7,17 @@ client.PREFIX = PREFIX;
 //client.mongoose = require("./utils/mongoose");
 client.commands = new Collection();
 
+fs.readdir("./events/", (err, files) => {
+    if (err) return console.error;
+    files.forEach(file => {
+        if (!file.endsWith(".js")) return undefined;
+        const event = require(`./events/${file}`);
+        const eventName = file.split(".")[0];
+        console.log(`Evenement ${eventName} chargé.`);
+        client.on(eventName, event.bind(null, client));
+    })
+})
+
 fs.readdir("./commands/", (err, files) => {
     if (err) return console.error;
     files.forEach(file => {
@@ -17,10 +28,6 @@ fs.readdir("./commands/", (err, files) => {
         client.commands.set(props, cmdName);
     })
 })
-
-client.on('ready', () => require('./events/ready.js')(client));
-client.on('message', (msg) => require('./events/message.js')(client, msg));
-client.on('guildMemberAdd', (member) => require('./events/guildMemberAdd.js')(client, member));
 
 //client.mongoose.init();
 client.login(TOKEN);

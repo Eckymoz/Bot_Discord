@@ -1,6 +1,6 @@
 const { MessageEmbed, Collector, ReactionEmoji } = require('discord.js');
 
-module.exports = async (client, message, args) => {
+exports.run = async (client, message, args) => {
 
     try {
 
@@ -10,8 +10,6 @@ module.exports = async (client, message, args) => {
         const pollTitle = await message.channel.send({ embed });
         await pollTitle.react('✔️')
         await pollTitle.react('❌')
-
-        //Collecteurs 
 
         const filter = reaction => reaction.emoji.name === '✔️';
         const collector = pollTitle.createReactionCollector(filter, {
@@ -31,3 +29,6 @@ module.exports = async (client, message, args) => {
 
 }
 
+exports.help = {
+    name: "poll"
+}

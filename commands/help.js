@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 
-module.exports = (client, message) => {
+exports.run = (client, message) => {
     const exampleEmbed = new MessageEmbed()
         .setAuthor('Collec Bot', 'https://zupimages.net/up/20/16/pp9p.jpg')
         .setColor('#0099ff')
@@ -12,7 +12,7 @@ module.exports = (client, message) => {
             { name: '\u200B', value: '\u200B' },
             { name: ':peach: `!collec benjo`', value: 'Some value here', inline: true },
             { name: '!collec repeat', value: 'Some value here', inline: true },
-            { name: 'Inline field title', value: 'Some value here', inline: true }
+            { name: '!collec poll', value: 'Some value here', inline: true }
 
         )
         .setTimestamp()
@@ -20,3 +20,7 @@ module.exports = (client, message) => {
 
     message.channel.send(exampleEmbed);
 };
+
+exports.help = {
+    name: "help"
+}

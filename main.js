@@ -1,17 +1,22 @@
 const { Client, Collection } = require('discord.js');
 const { TOKEN, PREFIX } = require('./config');
 const client = new Client({ disableEveryone: true });
+const fs = require('fs');
 
 client.PREFIX = PREFIX;
 //client.mongoose = require("./utils/mongoose");
 client.commands = new Collection();
 
-client.commands.set('help', require('./commands/help.js'));
-client.commands.set('repeat', require('./commands/repeat.js'));
-client.commands.set('role', require('./commands/role.js'));
-client.commands.set('info', require('./commands/info.js'));
-client.commands.set('animals', require('./commands/animals.js'));
-client.commands.set('poll', require('./commands/poll.js'));
+fs.readdir("./commands/", (err, files) => {
+    if (err) return console.error;
+    files.forEach(file => {
+        if (!file.endsWith(".js")) return undefined;
+        const props = require(`./commands/${file}`);
+        const cmdName = file.split(".")[0];
+        console.log(`Commande ${cmdName} chargée.`);
+        client.commands.set(props, cmdName);
+    })
+})
 
 client.on('ready', () => require('./events/ready.js')(client));
 client.on('message', (msg) => require('./events/message.js')(client, msg));

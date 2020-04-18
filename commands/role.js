@@ -1,4 +1,4 @@
-module.exports = (client, message, args) => {
+exports.run = (client, message, args) => {
 
   const role = message.guild.roles.cache.find(r => r.name === args[0]);
 
@@ -12,3 +12,7 @@ module.exports = (client, message, args) => {
     message.channel.send(`J'ai ajouté le rôle ${role} à ${message.author}.`);
   }
 };
+
+exports.help = {
+  name: "role"
+}

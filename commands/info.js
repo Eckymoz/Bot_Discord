@@ -13,7 +13,7 @@ module.exports = (Client, message) => {
     )
     .addField('Inline field title', 'Some value here', true)
     .setTimestamp()
-    .setFooter('Some footer text here');
+    .setFooter('Some footer text here', (message.author.displayAvatarURL()));
 
   message.channel.send(exampleEmbed);
 };

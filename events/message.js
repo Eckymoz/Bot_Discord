@@ -7,3 +7,4 @@ module.exports = (client, message) => {
   if (client.commands.has(command))
     client.commands.get(command)(client, message, args);
 };
+

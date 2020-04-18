@@ -1,8 +1,8 @@
-module.exports = (Client, message, args) => {
+module.exports = (client, message, args) => {
 
   const role = message.guild.roles.cache.find(r => r.name === args[0]);
 
-  if (!role) return msg.channel.send("Ce rôle n'existe pas !");
+  if (!role) return message.channel.send("Ce rôle n'existe pas !");
 
   if (message.member.roles.cache.find((r) => r.name === args[0])) {
     message.member.roles.remove(role);

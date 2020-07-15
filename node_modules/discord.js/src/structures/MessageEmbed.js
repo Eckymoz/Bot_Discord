@@ -7,6 +7,13 @@ const Util = require('../util/Util');
  * Represents an embed in a message (image/video preview, rich embed, etc.)
  */
 class MessageEmbed {
+  /**
+   * @name MessageEmbed
+   * @kind constructor
+   * @memberof MessageEmbed
+   * @param {MessageEmbed|Object} [data={}] MessageEmbed to clone or raw embed data
+   */
+
   constructor(data = {}, skipValidation = false) {
     this.setup(data, skipValidation);
   }
@@ -317,7 +324,7 @@ class MessageEmbed {
    */
   setFooter(text, iconURL) {
     text = Util.resolveString(text);
-    this.footer = { text, iconURL };
+    this.footer = { text, iconURL, proxyIconURL: undefined };
     return this;
   }
 

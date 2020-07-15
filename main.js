@@ -1,6 +1,6 @@
-const { Client, Collection } = require('discord.js');
-const { TOKEN, PREFIX } = require('./config');
-const client = new Client({ disableEveryone: true });
+const {Client, Collection} = require('discord.js');
+const {TOKEN, PREFIX} = require('./config');
+const client = new Client({disableEveryone: true});
 const fs = require('fs');
 
 client.PREFIX = PREFIX;
